@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -25,7 +25,7 @@ chmod +x rustup
 ./rustup -y
 source ~/.cargo/env
 
-RUSTFLAGS="-C strip=symbols" cargo build --release --features local-dns,local-http-rustls,local-redir,local-tun
+RUSTFLAGS="-C strip=symbols" cargo build --release --features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 %check
 source ~/.cargo/env
@@ -58,5 +58,8 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/con
 %{_sysconfdir}/%{name}/*
 
 %changelog
+* Sat Jul 16 2022 spyophobia - 1.43.3-2
+- Enable dns-over-https & dns-over-tls features
+
 * Sat Jul 16 2022 spyophobia - 1.43.3-1
 - Release 1.43.3
