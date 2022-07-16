@@ -8,7 +8,7 @@ Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
 Source0: %{url}/archive/v%{version}.tar.gz
-BuildRequires: cargo rust
+BuildRequires: gcc
 
 %description
 This is a Rust port of shadowsocks: https://shadowsocks.org/
@@ -19,9 +19,16 @@ shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
 %autosetup
 
 %build
+# use latest stable rust version from rustup
+curl -Lfo rustup https://sh.rustup.rs
+chmod +x rustup
+./rustup -y
+source ~/.cargo/env
+
 RUSTFLAGS="-C strip=symbols" cargo build --release --features local-dns,local-http-rustls,local-redir,local-tun
 
 %check
+source ~/.cargo/env
 cargo test
 
 %install
