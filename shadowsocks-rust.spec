@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%_unitdir %{_prefix}/lib/systemd/system
+%global _unitdir %{_prefix}/lib/systemd/system
 
 Name:    shadowsocks-rust
 Version: 1.14.3
