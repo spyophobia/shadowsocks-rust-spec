@@ -35,8 +35,8 @@ install -Dpm 644 debian/%{name}-local@.service %{buildroot}%{_unitdir}/%{name}-l
 install -Dpm 644 debian/%{name}-server@.service %{buildroot}%{_unitdir}/%{name}-server@.service
 
 # configs
-install -Dpm 644 examples/config.json %{_sysconfdir}/%{name}/config.json.example
-install -Dpm 644 examples/config_ext.json %{_sysconfdir}/%{name}/config_ext.json.example
+install -Dpm 644 examples/config.json %{buildroot}%{_sysconfdir}/%{name}/config.json.example
+install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/config_ext.json.example
 
 %files
 %license LICENSE
@@ -48,7 +48,7 @@ install -Dpm 644 examples/config_ext.json %{_sysconfdir}/%{name}/config_ext.json
 %{_bindir}/ssservice
 %{_unitdir}/%{name}-local@.service
 %{_unitdir}/%{name}-server@.service
-%{_sysconfigdir}/%{name}/*
+%{_sysconfdir}/%{name}/*
 
 %changelog
 * Sat Jul 16 2022 spyophobia - 1.43.3-1
