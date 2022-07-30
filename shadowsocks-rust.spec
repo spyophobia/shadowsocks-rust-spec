@@ -1,5 +1,6 @@
 %global debug_package %{nil}
 %global _unitdir %{_prefix}/lib/systemd/system
+%global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
 Version: 1.14.3
@@ -27,11 +28,11 @@ chmod +x rustup
 ./rustup -y
 source ~/.cargo/env
 
-RUSTFLAGS="-C strip=symbols" cargo build --release --features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
+RUSTFLAGS="-C strip=symbols" cargo build --release --features %{_features}
 
 %check
 source ~/.cargo/env
-cargo test
+cargo test --release --features %{_features}
 
 %install
 # bin
