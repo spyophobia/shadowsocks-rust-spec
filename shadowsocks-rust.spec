@@ -21,13 +21,11 @@ shadowsocks is a fast tunnel proxy that helps you bypass firewalls.
 %prep
 %autosetup
 
-%build
 # use latest stable rust version from rustup
-curl -Lfo rustup https://sh.rustup.rs
-chmod +x rustup
-./rustup -y
-source ~/.cargo/env
+curl -Lf https://sh.rustup.rs | sh -s -- -y --profile minimal
 
+%build
+source ~/.cargo/env
 RUSTFLAGS="-C strip=symbols" cargo build --release --features %{_features}
 
 %check
