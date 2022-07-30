@@ -3,11 +3,13 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
 Source0: %{url}/archive/v%{version}.tar.gz
+Source1: %{name}-local@.service
+Source2: %{name}-server@.service
 BuildRequires: gcc
 
 %description
@@ -38,12 +40,15 @@ for BIN_NAME in sslocal ssserver ssurl ssmanager ssservice; do
 done
 
 # units
-install -Dpm 644 debian/%{name}-local@.service %{buildroot}%{_unitdir}/%{name}-local@.service
-install -Dpm 644 debian/%{name}-server@.service %{buildroot}%{_unitdir}/%{name}-server@.service
+mkdir -p %{buildroot}%{_unitdir}
+install -Dpm 644 -t %{buildroot}%{_unitdir} %{SOURCE1} %{SOURCE2}
 
-# configs
-install -Dpm 644 examples/config.json %{buildroot}%{_sysconfdir}/%{name}/config.json.example
-install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/config_ext.json.example
+# empty config dirs
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}
+
+# example configs
+install -Dpm 644 examples/config.json %{buildroot}%{_sysconfdir}/%{name}/example/config.json5
+install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/example/config_ext.json5
 
 %files
 %license LICENSE
@@ -58,6 +63,9 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/con
 %{_sysconfdir}/%{name}/*
 
 %changelog
+* Sun Jul 31 2022 spyophobia - 1.43.3-3
+- Use modified unit files to facilitate better organisation of config files
+
 * Sat Jul 16 2022 spyophobia - 1.43.3-2
 - Enable dns-over-https & dns-over-tls features
 
