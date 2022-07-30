@@ -6,7 +6,7 @@
 # For example, if you want to name your profile "bar", you should have
 # the following directory structure:
 #
-# /etc/shadowsocks-rust/local/bar
+# /etc/shadowsocks-rust/server/bar
 #   └─ ss.json5
 #
 # You can now enable your service like this:
