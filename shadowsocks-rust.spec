@@ -4,7 +4,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -62,6 +62,9 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_sysconfdir}/%{name}/*
 
 %changelog
+* Mon Aug 01 2022 spyophobia - 1.43.3-4
+- Add autorestart to systemd unit files
+
 * Sun Jul 31 2022 spyophobia - 1.43.3-3
 - Use modified unit files to facilitate better organisation of config files
 
