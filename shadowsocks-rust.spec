@@ -4,7 +4,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -61,7 +61,31 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_unitdir}/%{name}-server@.service
 %{_sysconfdir}/%{name}/*
 
+%preun
+# 1: update 0: uninstall
+if [[ "$1" -lt 1 ]]; then
+    for SERVICE in "%{name}-{local,server}@\*.service"; do
+        echo "Stopping and disabling ${SERVICE} ..."
+        systemctl disable --now ${SERVICE}
+    done
+fi
+
+%post
+# 1: install 2: update
+if [[ "$1" -gt 1 ]]; then
+    systemctl daemon-reload
+    ACTIVE_SERVICES=$(systemctl --user list-units --quiet --full --plain --state=active \
+        "%{name}-{local,server}@\*.service" | cut -d " " -f 1)
+    for SERVICE in ${ACTIVE_SERVICES}; do
+        echo "Restarting ${SERVICE} ..."
+        systemctl restart ${SERVICE}
+    done
+fi
+
 %changelog
+* Wed Aug 17 2022 spyophobia - 1.43.3-6
+- Added scriptlets for systemd
+
 * Tue Aug 16 2022 spyophobia - 1.43.3-5
 - Set Restart=always in systemd unit files
 
