@@ -4,7 +4,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -61,28 +61,33 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_unitdir}/%{name}-server@.service
 %config %{_sysconfdir}/%{name}/*
 
-%preun
-# 1: update 0: uninstall
-if [[ "$1" -lt 1 ]]; then
-    for SERVICE in "%{name}-{local,server}@\*.service"; do
-        echo "Stopping and disabling ${SERVICE} ..."
-        systemctl disable --now ${SERVICE}
-    done
-fi
-
 %post
 # 1: install 2: update
 if [[ "$1" -gt 1 ]]; then
     systemctl daemon-reload
-    ACTIVE_SERVICES=$(systemctl --user list-units --quiet --full --plain --state=active \
-        "%{name}-{local,server}@\*.service" | cut -d " " -f 1)
+    ACTIVE_SERVICES=$(systemctl list-units --full --quiet --no-legend --plain --state=active \
+        %{name}-{local,server}@\*.service | cut -d " " -f 1)
     for SERVICE in ${ACTIVE_SERVICES}; do
         echo "Restarting ${SERVICE} ..."
         systemctl restart ${SERVICE}
     done
 fi
 
+%preun
+# 1: update 0: uninstall
+if [[ "$1" -lt 1 ]]; then
+    SERVICES=$(systemctl list-units --full --quiet --no-legend --plain \
+        %{name}-{local,server}@\*.service | cut -d " " -f 1)
+    for SERVICE in ${SERVICES}; do
+        echo "Stopping and disabling ${SERVICE} ..."
+        systemctl disable --now ${SERVICE}
+    done
+fi
+
 %changelog
+* Wed Aug 17 2022 spyophobia - 1.14.3-7
+- Fix scriptlets
+
 * Wed Aug 17 2022 spyophobia - 1.14.3-6
 - Added scriptlets for systemd
 - Mark config files properly
