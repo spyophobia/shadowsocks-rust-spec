@@ -59,7 +59,7 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_bindir}/ssservice
 %{_unitdir}/%{name}-local@.service
 %{_unitdir}/%{name}-server@.service
-%{_sysconfdir}/%{name}/*
+%config %{_sysconfdir}/%{name}/*
 
 %preun
 # 1: update 0: uninstall
@@ -83,20 +83,22 @@ if [[ "$1" -gt 1 ]]; then
 fi
 
 %changelog
-* Wed Aug 17 2022 spyophobia - 1.43.3-6
+* Wed Aug 17 2022 spyophobia - 1.14.3-6
 - Added scriptlets for systemd
+- Mark config files properly
+- Fix changelog version fuckups
 
-* Tue Aug 16 2022 spyophobia - 1.43.3-5
+* Tue Aug 16 2022 spyophobia - 1.14.3-5
 - Set Restart=always in systemd unit files
 
-* Mon Aug 01 2022 spyophobia - 1.43.3-4
+* Mon Aug 01 2022 spyophobia - 1.14.3-4
 - Add autorestart to systemd unit files
 
-* Sun Jul 31 2022 spyophobia - 1.43.3-3
+* Sun Jul 31 2022 spyophobia - 1.14.3-3
 - Use modified unit files to facilitate better organisation of config files
 
-* Sat Jul 16 2022 spyophobia - 1.43.3-2
+* Sat Jul 16 2022 spyophobia - 1.14.3-2
 - Enable dns-over-https & dns-over-tls features
 
-* Sat Jul 16 2022 spyophobia - 1.43.3-1
+* Sat Jul 16 2022 spyophobia - 1.14.3-1
 - Release 1.43.3
