@@ -1,5 +1,4 @@
 %global debug_package %{nil}
-%global _unitdir %{_prefix}/lib/systemd/system
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
