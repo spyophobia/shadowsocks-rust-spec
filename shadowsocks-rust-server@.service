@@ -23,6 +23,7 @@ StartLimitBurst=5
 
 [Service]
 Type=simple
+DynamicUser=yes
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 WorkingDirectory=/etc/shadowsocks-rust/server/%i
