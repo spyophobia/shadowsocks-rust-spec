@@ -8,10 +8,10 @@ Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
 Source0: %{url}/archive/v%{version}.tar.gz
-Source1: systemd/system/%{name}-local@.service
-Source2: systemd/system/%{name}-server@.service
-Source3: systemd/user/%{name}-local@.service
-Source4: systemd/user/%{name}-server@.service
+Source1: shadowsocks-rust-local@.service.system
+Source2: shadowsocks-rust-server@.service.system
+Source3: shadowsocks-rust-local@.service.user
+Source4: shadowsocks-rust-server@.service.user
 BuildRequires: gcc systemd-rpm-macros
 
 %description
@@ -41,9 +41,11 @@ done
 
 # units
 mkdir -p %{buildroot}%{_unitdir}
-install -Dpm 644 -t %{buildroot}%{_unitdir} %{SOURCE1} %{SOURCE2}
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}-local@.service
+install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}-server@.service
 mkdir -p %{buildroot}%{_userunitdir}
-install -Dpm 644 -t %{buildroot}%{_userunitdir} %{SOURCE3} %{SOURCE4}
+install -Dpm 644 %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}-local@.service
+install -Dpm 644 %{SOURCE4} %{buildroot}%{_userunitdir}/%{name}-server@.service
 
 # empty config dirs
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}
@@ -62,6 +64,8 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_bindir}/ssservice
 %{_unitdir}/%{name}-local@.service
 %{_unitdir}/%{name}-server@.service
+%{_userunitdir}/%{name}-local@.service
+%{_userunitdir}/%{name}-server@.service
 %config %{_sysconfdir}/%{name}/*
 
 %post
