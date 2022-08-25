@@ -8,8 +8,10 @@ Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
 Source0: %{url}/archive/v%{version}.tar.gz
-Source1: %{name}-local@.service
-Source2: %{name}-server@.service
+Source1: systemd/system/%{name}-local@.service
+Source2: systemd/system/%{name}-server@.service
+Source3: systemd/user/%{name}-local@.service
+Source4: systemd/user/%{name}-server@.service
 BuildRequires: gcc
 
 %description
@@ -40,6 +42,8 @@ done
 # units
 mkdir -p %{buildroot}%{_unitdir}
 install -Dpm 644 -t %{buildroot}%{_unitdir} %{SOURCE1} %{SOURCE2}
+mkdir -p %{buildroot}%{_userunitdir}
+install -Dpm 644 -t %{buildroot}%{_userunitdir} %{SOURCE3} %{SOURCE4}
 
 # empty config dirs
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}
@@ -86,6 +90,7 @@ fi
 %changelog
 * Thu Aug 25 2022 spyophobia - 1.43.3-8
 - Set DynamicUser=yes in systemd units
+- Add user units
 
 * Wed Aug 17 2022 spyophobia - 1.14.3-7
 - Fix scriptlets

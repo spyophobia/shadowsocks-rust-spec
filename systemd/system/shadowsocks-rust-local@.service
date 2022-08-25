@@ -1,4 +1,5 @@
 # This file is derived from the default unit file for shadowsocks-rust.
+# This is the system-wide version of this unit.
 #
 # Users should create a new directory under /etc/shadowsocks-rust/local
 # as the profile directory and place a "ss.json5" file under it.
