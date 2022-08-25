@@ -12,7 +12,7 @@ Source1: systemd/system/%{name}-local@.service
 Source2: systemd/system/%{name}-server@.service
 Source3: systemd/user/%{name}-local@.service
 Source4: systemd/user/%{name}-server@.service
-BuildRequires: gcc
+BuildRequires: gcc systemd-rpm-macros
 
 %description
 This is a Rust port of shadowsocks: https://shadowsocks.org/
