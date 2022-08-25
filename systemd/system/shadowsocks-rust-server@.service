@@ -27,7 +27,7 @@ Type=simple
 DynamicUser=yes
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_BIND_SERVICE
-WorkingDirectory=/etc/shadowsocks-rust/server/%i
+WorkingDirectory=%E/shadowsocks-rust/server/%i
 ExecStart=/usr/bin/ssserver --log-without-time -c ss.json5
 
 Restart=always
