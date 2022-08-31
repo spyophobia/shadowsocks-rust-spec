@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.14.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -92,6 +92,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Wed Aug 31 2022 spyophobia - 1.43.3-9
+- Improve user instructions in systemd units
+
 * Thu Aug 25 2022 spyophobia - 1.43.3-8
 - Set DynamicUser=yes in systemd units
 - Add user units
