@@ -2,8 +2,8 @@
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.14.3
-Release: 9%{?dist}
+Version: 1.15.1
+Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -92,10 +92,14 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
-* Wed Aug 31 2022 spyophobia - 1.43.3-9
+* Sun Dec 18 2022 spyophobia - 1.15.1-1
+- Release 1.15.1
+- Fixed version errors in older changelog
+
+* Wed Aug 31 2022 spyophobia - 1.14.3-9
 - Improve user instructions in systemd units
 
-* Thu Aug 25 2022 spyophobia - 1.43.3-8
+* Thu Aug 25 2022 spyophobia - 1.14.3-8
 - Set DynamicUser=yes in systemd units
 - Add user units
 
@@ -120,4 +124,4 @@ fi
 - Enable dns-over-https & dns-over-tls features
 
 * Sat Jul 16 2022 spyophobia - 1.14.3-1
-- Release 1.43.3
+- Release 1.14.3
