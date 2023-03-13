@@ -2,7 +2,7 @@
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.15.2
+Version: 1.15.3
 Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
@@ -92,6 +92,10 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Mon Mar 13 2023 spyophobia - 1.15.3-1
+- Release 1.15.3
+- Use `ssservice` in favor of deprecated `sslocal` & `ssserver`
+
 * Wed Jan 04 2023 spyophobia - 1.15.2-1
 - Release 1.15.2
 - Remove unfitting capability declarations from unit files

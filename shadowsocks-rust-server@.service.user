@@ -29,7 +29,7 @@ StartLimitBurst=5
 [Service]
 Type=simple
 WorkingDirectory=%E/shadowsocks-rust/server/%i
-ExecStart=/usr/bin/ssserver --log-without-time -c ss.json5
+ExecStart=/usr/bin/ssservice server --log-without-time -c ss.json5
 
 Restart=always
 RestartSec=3s
