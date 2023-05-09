@@ -27,7 +27,6 @@ StartLimitBurst=5
 
 [Service]
 Type=simple
-DynamicUser=yes
 User=shadowsocks-rust
 Group=shadowsocks-rust
 WorkingDirectory=%E/shadowsocks-rust/local/%i

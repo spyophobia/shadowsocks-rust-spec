@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.15.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -12,6 +12,7 @@ Source1: shadowsocks-rust-local@.service.system
 Source2: shadowsocks-rust-server@.service.system
 Source3: shadowsocks-rust-local@.service.user
 Source4: shadowsocks-rust-server@.service.user
+Source5: shadowsocks-rust.conf.sysusers
 BuildRequires: gcc systemd-rpm-macros
 
 %description
@@ -39,13 +40,15 @@ for BIN_NAME in sslocal ssserver ssurl ssmanager ssservice; do
     install -Dpm 755 target/release/${BIN_NAME} %{buildroot}%{_bindir}/${BIN_NAME}
 done
 
-# units
+# systemd
 mkdir -p %{buildroot}%{_unitdir}
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}-local@.service
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}-server@.service
 mkdir -p %{buildroot}%{_userunitdir}
 install -Dpm 644 %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}-local@.service
 install -Dpm 644 %{SOURCE4} %{buildroot}%{_userunitdir}/%{name}-server@.service
+mkdir -p %{buildroot}%{_sysusersdir}
+install -Dpm 644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # empty config dirs
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}
@@ -66,6 +69,7 @@ install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/exa
 %{_unitdir}/%{name}-server@.service
 %{_userunitdir}/%{name}-local@.service
 %{_userunitdir}/%{name}-server@.service
+%{_sysusersdir}/%{name}.conf
 %config %{_sysconfdir}/%{name}/*
 
 %post
@@ -80,6 +84,8 @@ if [[ "$1" -gt 1 ]]; then
     done
 fi
 
+systemd-sysusers
+
 %preun
 # 1: update 0: uninstall
 if [[ "$1" -lt 1 ]]; then
@@ -92,6 +98,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Tue May 09 2023 spyophobia - 1.15.3-3
+- Use sysusers instead of systemd's DynamicUser
+
 * Tue May 09 2023 spyophobia - 1.15.3-2
 - Define explicit user and group for system units
 
