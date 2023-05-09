@@ -28,6 +28,8 @@ StartLimitBurst=5
 [Service]
 Type=simple
 DynamicUser=yes
+User=shadowsocks-rust
+Group=shadowsocks-rust
 WorkingDirectory=%E/shadowsocks-rust/local/%i
 ExecStart=/usr/bin/ssservice local --log-without-time -c ss.json5
 
