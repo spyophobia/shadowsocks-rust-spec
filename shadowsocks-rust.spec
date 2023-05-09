@@ -32,7 +32,7 @@ RUSTFLAGS="-C strip=symbols" cargo build --release --features %{_features}
 
 %check
 source ~/.cargo/env
-cargo test --release --features %{_features}
+cargo test --features %{_features}
 
 %install
 # bin
