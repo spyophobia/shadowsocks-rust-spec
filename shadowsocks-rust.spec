@@ -2,8 +2,8 @@
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.15.3
-Release: 3%{?dist}
+Version: 1.15.4
+Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -98,6 +98,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Sat Jul 08 2023 spyophobia - 1.15.4-1
+- Release 1.15.4
+
 * Tue May 09 2023 spyophobia - 1.15.3-3
 - Use sysusers instead of systemd's DynamicUser
 
