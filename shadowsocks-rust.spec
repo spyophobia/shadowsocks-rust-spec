@@ -2,7 +2,7 @@
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.16.0
+Version: 1.16.1
 Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
@@ -32,7 +32,7 @@ RUSTFLAGS="-C strip=symbols" cargo build --release --features %{_features}
 
 %check
 source ~/.cargo/env
-cargo test --features %{_features} -- --skip dns_relay
+cargo test --features %{_features}
 
 %install
 # bin
@@ -98,6 +98,10 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Fri Sep 01 2023 spyophobia - 1.16.1-1
+- Release 1.16.1
+- Reenable fixed test
+
 * Mon Aug 28 2023 spyophobia - 1.16.0-1
 - Release 1.16.0
 - Temporarily skipping failing test `dns_relay`
