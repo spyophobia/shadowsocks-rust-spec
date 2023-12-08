@@ -30,6 +30,8 @@ Type=simple
 User=shadowsocks-rust
 Group=shadowsocks-rust
 WorkingDirectory=%E/shadowsocks-rust/local/%i
+AmbientCapabilities=CAP_NET_BIND_SERVICE CAP_NET_ADMIN
+NoNewPrivileges=true
 ExecStart=/usr/bin/ssservice local --log-without-time -c ss.json5
 
 Restart=always
