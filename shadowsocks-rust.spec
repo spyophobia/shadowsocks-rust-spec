@@ -2,7 +2,7 @@
 %global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.18.4
+Version: 1.19.0
 Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
@@ -98,6 +98,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Sun May 26 2024 spyophobia - 1.19.0-1
+- Release 1.19.0
+
 * Sun May 12 2024 spyophobia - 1.18.4-1
 - Release 1.18.4
 
