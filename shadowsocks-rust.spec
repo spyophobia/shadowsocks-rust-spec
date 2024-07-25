@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.20.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -98,6 +98,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Thu Jul 25 2024 spyophobia - 1.20.2-2
+- Fix capability issues in user services
+
 * Sat Jul 13 2024 spyophobia - 1.20.2-1
 - Release 1.20.2
 
