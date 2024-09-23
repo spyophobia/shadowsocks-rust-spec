@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -36,40 +36,30 @@ cargo test --features %{_features}
 
 %install
 # bin
-for BIN_NAME in sslocal ssserver ssurl ssmanager ssservice; do
-    install -Dpm 755 target/release/${BIN_NAME} %{buildroot}%{_bindir}/${BIN_NAME}
-done
+install -Dpm 644 -t %{buildroot}%{_bindir}/ \
+    target/release/{sslocal,ssserver,ssurl,ssmanager,ssservice}
 
 # systemd
-mkdir -p %{buildroot}%{_unitdir}
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}-local@.service
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}-server@.service
-mkdir -p %{buildroot}%{_userunitdir}
 install -Dpm 644 %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}-local@.service
 install -Dpm 644 %{SOURCE4} %{buildroot}%{_userunitdir}/%{name}-server@.service
-mkdir -p %{buildroot}%{_sysusersdir}
 install -Dpm 644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # empty config dirs
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/{local,server}/
 
 # example configs
-install -Dpm 644 examples/config.json %{buildroot}%{_sysconfdir}/%{name}/example/config.json5
-install -Dpm 644 examples/config_ext.json %{buildroot}%{_sysconfdir}/%{name}/example/config_ext.json5
+install -Dpm 644 -t %{buildroot}%{_sysconfdir}/%{name}/example/ \
+    examples/{config.json,config_ext.json}
 
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/sslocal
-%{_bindir}/ssserver
-%{_bindir}/ssurl
-%{_bindir}/ssmanager
-%{_bindir}/ssservice
-%{_unitdir}/%{name}-local@.service
-%{_unitdir}/%{name}-server@.service
-%{_userunitdir}/%{name}-local@.service
-%{_userunitdir}/%{name}-server@.service
-%{_sysusersdir}/%{name}.conf
+%{_bindir}/*
+%{_unitdir}/*
+%{_userunitdir}/*
+%{_sysusersdir}/*
 %config %{_sysconfdir}/%{name}/*
 
 %post
@@ -98,6 +88,10 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Mon Sep 23 2024 spyophobia - 1.21.0-2
+- Simplify install section
+    - EL7 is now EOL, so we can finally `install -t` without `mkdir` first
+
 * Mon Sep 23 2024 spyophobia - 1.21.0-1
 - Release 1.21.0
 
