@@ -3,7 +3,7 @@
 
 Name:    shadowsocks-rust
 Version: 1.21.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -36,7 +36,7 @@ cargo test --features %{_features}
 
 %install
 # bin
-install -Dpm 644 -t %{buildroot}%{_bindir}/ \
+install -Dpm 755 -t %{buildroot}%{_bindir}/ \
     target/release/{sslocal,ssserver,ssurl,ssmanager,ssservice}
 
 # systemd
@@ -88,6 +88,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Wed Oct 09 2024 spyophobia - 1.21.0-3
+- Fix incorrect binary file mode
+
 * Mon Sep 23 2024 spyophobia - 1.21.0-2
 - Simplify install section
     - EL7 is now EOL, so we can finally `install -t` without `mkdir` first
