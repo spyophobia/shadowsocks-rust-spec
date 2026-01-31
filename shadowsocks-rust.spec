@@ -1,9 +1,8 @@
 %global debug_package %{nil}
-%global _features dns-over-https,dns-over-tls,local-dns,local-http-rustls,local-redir,local-tun
 
 Name:    shadowsocks-rust
-Version: 1.21.0
-Release: 3%{?dist}
+Version: 1.24.0
+Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
 URL: https://github.com/shadowsocks/shadowsocks-rust
@@ -28,11 +27,11 @@ curl -Lf https://sh.rustup.rs | sh -s -- -y --profile minimal
 
 %build
 source ~/.cargo/env
-RUSTFLAGS="-C strip=symbols" cargo build --release --features %{_features}
+cargo build --release
 
 %check
 source ~/.cargo/env
-cargo test --features %{_features}
+cargo test
 
 %install
 # bin
@@ -88,6 +87,12 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Sat Jan 31 2026 spyophobia - 1.24.0-1
+- Release 1.24.0
+- Use upstream default settings
+    - Strip now enabled by default in release mode
+    - Feature `full` is now default
+
 * Wed Oct 09 2024 spyophobia - 1.21.0-3
 - Fix incorrect binary file mode
 
