@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:    shadowsocks-rust
-Version: 1.24.0
+Version: 1.25.0
 Release: 1%{?dist}
 Summary: A Rust port of shadowsocks
 License: MIT
@@ -87,6 +87,9 @@ if [[ "$1" -lt 1 ]]; then
 fi
 
 %changelog
+* Sat Oct 10 2026 spyophobia - 1.25.0-1
+- Release 1.25.0
+
 * Sat Jan 31 2026 spyophobia - 1.24.0-1
 - Release 1.24.0
 - Use upstream default settings
